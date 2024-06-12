@@ -1,9 +1,13 @@
-import React from "react";
-
-const Stats = () => {
+import { FormType } from "./Form";
+type ItemProp = {
+  items: FormType[];
+};
+const Stats = ({ items }: ItemProp) => {
+  const totalItem = items.length;
+  console.log(totalItem);
   return (
     <footer className="stats">
-      <em>You have X items on your list and you have already packed X items</em>
+      <em>You have {totalItem} items on your list.</em>
     </footer>
   );
 };
