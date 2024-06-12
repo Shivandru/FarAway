@@ -1,9 +1,13 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 type FormType = {
   quantity: number;
   item: string;
+  packed: boolean;
+  time: string;
 };
 const Form = () => {
+  const [description, setDescription] = useState<FormType | null>(null);
   const {
     register,
     handleSubmit,
@@ -11,9 +15,14 @@ const Form = () => {
     reset,
   } = useForm<FormType>();
   function onSubmitForm(data: FormType) {
-    console.log(data);
+    setDescription({
+      ...data,
+      packed: false,
+      time: new Date().toLocaleString(),
+    });
     reset();
   }
+  console.log(description);
   return (
     <form onSubmit={handleSubmit(onSubmitForm)} className="add-form">
       <h3>What do you need for the 😍 trip?</h3>
