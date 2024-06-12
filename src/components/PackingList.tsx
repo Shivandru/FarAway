@@ -1,14 +1,15 @@
 import Item from "./Item";
-const initialItems = [
-  { id: 1, description: "Passports", quantity: 2, packed: false },
-  { id: 2, description: "Socks", quantity: 12, packed: false },
-];
-const PackingList = () => {
+import { FormType } from "./Form";
+type ItemListProps = {
+  items: FormType[];
+  handleDeleteItem: ( id : number) => void;
+};
+const PackingList = ({ items, handleDeleteItem }: ItemListProps) => {
   return (
     <div className="list">
       <ul>
-        {initialItems?.map((el) => (
-          <Item item={el} key={el.id} />
+        {items?.map((el) => (
+          <Item item={el} key={el.id} handleDeleteItem={handleDeleteItem} />
         ))}
       </ul>
     </div>

@@ -1,28 +1,31 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
-type FormType = {
+export type FormType = {
+  id: number;
   quantity: number;
   item: string;
   packed: boolean;
   time: string;
 };
-const Form = () => {
-  const [description, setDescription] = useState<FormType | null>(null);
+type FormProps = {
+  handleAddItems: (item: FormType) => void;
+};
+const Form = ({ handleAddItems }: FormProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
   } = useForm<FormType>();
+
   function onSubmitForm(data: FormType) {
-    setDescription({
+    const newItem = {
       ...data,
       packed: false,
       time: new Date().toLocaleString(),
-    });
+    };
     reset();
+    handleAddItems(newItem);
   }
-  console.log(description);
   return (
     <form onSubmit={handleSubmit(onSubmitForm)} className="add-form">
       <h3>What do you need for the 😍 trip?</h3>
